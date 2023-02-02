@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-// import CustomerList from '../components/CustomerList';
+import CustomerList from '../components/CustomerList';
 
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
@@ -20,7 +20,7 @@ const Profile = () => {
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to='/profile' />;
   }
-
+  
   if (loading) {
     return (
       <div className='container'>
@@ -35,12 +35,7 @@ const Profile = () => {
   }
 
   if (!user?.username) {
-    return (
-      <h4>
-        You need to be logged in to see this page. Use the navigation links
-        above to sign up or log in!
-      </h4>
-    );
+    return <Navigate to='/' />
   }
 
   if (profileNavState === 'Overview') {
@@ -60,10 +55,13 @@ const Profile = () => {
             </li>
           </ul>
         </div>
-        <div className='profile-overview'>
-          <div className='flex-column align-center justify-center profile-user'>
+        <div className='profile-overview flex-row'>
+          <div className='flex-column align-center justify-center profile-user w-25'>
             <div data-initials={user.username.charAt(0)}></div>
             <h4>{user.username}</h4>
+          </div>
+          <div className='flex-column align-center w-75'>
+            <CustomerList customers={user.customers}/>
           </div>
         </div>
       </section>

@@ -1287,11 +1287,22 @@ nav a:hover {
   margin: 0 1.5rem;
 }
 
-.customer-list-container {
-  width: 20.813rem;
-  background-color: #030913;
+/* Customer List Section */
+
+.customer-list-container h3 {
+    color: #eee7d3;
 }
 
+.customer-list-container ul li {
+    list-style-type: none;
+}
+
+.addCustomerBtn {
+    border: none;
+    background-color: #0000;
+    color:#c2ac71;
+    font-size: 1.75rem;
+}
 .initial-icon-background {
   width: 8.5rem;
   height: 8.5rem;
@@ -1643,23 +1654,23 @@ a.link:hover {
 }
 
 [data-initials]:before {
-    background: #2F2923;
-    color: #eee7d3;
-    opacity: 1; 
-    content: attr(data-initials); 
-    display: inline-block; 
-    font-weight: bold; 
-    font-size: 3.5rem;
-    border-radius: 50%; 
-    vertical-align: middle; 
-    margin-right: 0.5em; 
-    width: 8.5rem; 
-    height: 8.5rem; 
-    line-height: 8.5rem; 
-    text-align: center;
-    margin: 0 auto; 
-    }
+  background: #2f2923;
+  color: #eee7d3;
+  opacity: 1;
+  content: attr(data-initials);
+  display: inline-block;
+  font-weight: bold;
+  font-size: 3.5rem;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 0.5em;
+  width: 8.5rem;
+  height: 8.5rem;
+  line-height: 8.5rem;
+  text-align: center;
+  margin: 0 auto;
+}
 
 .profile-user h4 {
-    margin-top: 5rem;
+  margin-top: 5rem;
 }

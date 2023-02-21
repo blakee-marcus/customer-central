@@ -25,7 +25,7 @@ const typeDefs = gql`
     customerSince: String
     notes: [Note]
     communicationHistory: [Communication]
-    createdBy: [User]
+    createdBy: User
     noteCount: Int
     communicationCount: Int
   }
@@ -60,7 +60,7 @@ const typeDefs = gql`
       email: String!
       phone: String
       address: String
-    ): User
+    ): Customer
     addCustomerNote(customerId: ID!, noteBody: String!): Customer
     addCustomerCommunication(
       customerId: ID!

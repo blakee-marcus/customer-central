@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+
 export const QUERY_CUSTOMERS = gql`
   query customers($username: String) {
     customers(username: $username) {
@@ -31,7 +32,7 @@ export const QUERY_CUSTOMERS = gql`
   }
 `;
 export const QUERY_CUSTOMER = gql`
-  query customer($id: ID!) {
+  query Query($id: ID!) {
     customer(_id: $id) {
       _id
       name
@@ -39,25 +40,30 @@ export const QUERY_CUSTOMER = gql`
       phone
       address
       customerSince
-      noteCount
       notes {
         _id
-        author
-        noteBody
+        author {
+          username
+        }
         createdAt
+        noteBody
       }
-      communicationCount
       communicationHistory {
         _id
-        type
-        subject
         date
         notes
+        subject
+        type
         participants {
-          _id
           username
         }
       }
+      createdBy {
+        _id
+        username
+      }
+      noteCount
+      communicationCount
     }
   }
 `;
@@ -83,7 +89,7 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_ME = gql`
-  {
+  query Query {
     me {
       _id
       username
@@ -96,16 +102,11 @@ export const QUERY_ME = gql`
         phone
         address
         customerSince
-        noteCount
         notes {
           _id
-          author {
-            username
-          }
-          noteBody
           createdAt
+          noteBody
         }
-        communicationCount
         communicationHistory {
           _id
           type
@@ -113,10 +114,15 @@ export const QUERY_ME = gql`
           date
           notes
           participants {
-            _id
             username
           }
         }
+        createdBy {
+          _id
+          username
+        }
+        noteCount
+        communicationCount
       }
     }
   }

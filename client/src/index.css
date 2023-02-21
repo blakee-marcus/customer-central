@@ -1292,17 +1292,49 @@ nav a:hover {
 .customer-list-container h3 {
     color: #eee7d3;
 }
+.customer-list-container h4 {
+    color: #eee7d3;
+}
 
 .customer-list-container ul li {
     list-style-type: none;
 }
 
+.customer-list-container [data-initials]:before {
+    font-size: 1.5rem;
+    width: 4.5rem;
+  height: 4.5rem;
+  line-height: 4.5rem;
+}
+
+.customer-card {
+    border-bottom: solid 1px #ffffff4d;
+}
 .addCustomerBtn {
     border: none;
     background-color: #0000;
     color:#c2ac71;
     font-size: 1.75rem;
+    cursor: pointer;
 }
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #030913;
+    padding: 20px;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 9999;
+    width: fit-content;
+  }
+  
+  .modal-content {
+    text-align: center;
+  }
+
 .initial-icon-background {
   width: 8.5rem;
   height: 8.5rem;

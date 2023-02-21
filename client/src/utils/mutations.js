@@ -23,3 +23,28 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const ADD_CUSTOMER = gql`
+  mutation AddCustomer($name: String!, $email: String!, $phone: String, $address: String) {
+  addCustomer(name: $name, email: $email, phone: $phone, address: $address) {
+    _id
+    name
+    email
+    phone
+    address
+    customerSince
+    noteCount
+    communicationCount
+    communicationHistory {
+      _id
+    }
+    notes {
+      _id
+    }
+    createdBy {
+        _id
+        username
+    }
+  }
+}
+`;

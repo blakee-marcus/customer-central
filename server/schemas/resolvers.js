@@ -51,7 +51,7 @@ const resolvers = {
       if (context.user) {
         const customer = await Customer.create({
           ...args,
-          createdBy: context.user.username,
+          createdBy: context.user._id,
         });
 
         await User.findByIdAndUpdate(

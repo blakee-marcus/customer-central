@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_CUSTOMER } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
 
-const CustomerForm = (props) => {
+const AddCustomerForm = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [formState, setFormState] = useState({
     name: '',
@@ -129,4 +129,4 @@ const CustomerForm = (props) => {
   );
 };
 
-export default CustomerForm;
+export default AddCustomerForm;

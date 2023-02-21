@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { HiUserAdd } from 'react-icons/hi';
 
 import CustomerList from '../components/CustomerList';
-import CustomerForm from '../components/CustomerForm';
+import AddCustomerForm from '../components/AddCustomerForm';
 
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
@@ -43,10 +43,10 @@ const Profile = () => {
   if (profileNavState === 'Overview') {
     return (
       <section>
-        <div className='flex-row profile-nav'>
+        <div className='flex-row sub-nav'>
           <ul>
             <li
-              className='active-profile-nav'
+              className='active-sub-nav'
               onClick={() => setProfileNavState('Overview')}
             >
               OVERVIEW
@@ -66,13 +66,13 @@ const Profile = () => {
             <div className='flex-row justify-space-between'>
               <h3>Customers ({user.customers.length})</h3>
               <button
-                className='addCustomerBtn'
+                className='open-modal-btn'
                 onClick={() => setModalVisible(true)}
               >
                 <HiUserAdd />
               </button>
               {modalVisible && (
-                <CustomerForm setModalVisible={setModalVisible} />
+                <AddCustomerForm setModalVisible={setModalVisible} />
               )}
             </div>
             <CustomerList customers={user.customers} />
@@ -85,11 +85,11 @@ const Profile = () => {
   if (profileNavState === 'Notes') {
     return (
       <section>
-        <div className='flex-row profile-nav'>
+        <div className='flex-row sub-nav'>
           <ul>
             <li onClick={() => setProfileNavState('Overview')}>OVERVIEW</li>
             <li
-              className='active-profile-nav'
+              className='active-sub-nav'
               onClick={() => setProfileNavState('Notes')}
             >
               NOTES
@@ -106,12 +106,12 @@ const Profile = () => {
   if (profileNavState === 'Communication') {
     return (
       <section>
-        <div className='flex-row profile-nav'>
+        <div className='flex-row sub-nav'>
           <ul>
             <li onClick={() => setProfileNavState('Overview')}>OVERVIEW</li>
             <li onClick={() => setProfileNavState('Notes')}>NOTES</li>
             <li
-              className='active-profile-nav'
+              className='active-sub-nav'
               onClick={() => setProfileNavState('Communication')}
             >
               COMMUNICATION

@@ -14,30 +14,34 @@ const Header = () => {
   ) {
     return (
       <header className='flex-row align-center col-12'>
-        {/* <div className='container flex-row justify-space-between-lg justify-center align-center'> */}
-
         <nav className='flex-row align-center justify-flex-start col-12'>
           <div className='main-nav'>
             <Link to='/profile'>Customer Central</Link>
           </div>
           {Auth.loggedIn() ? (
             <>
-              <Link to='/profile'>Profile</Link>
-              <a href='/' onClick={logout}>
+              <Link to='/profile' className='nav-hover'>
+                Profile
+              </Link>
+              <a href='/' onClick={logout} className='nav-hover'>
                 Logout
               </a>
             </>
           ) : (
             <>
-              <Link to='/'>Login</Link>
-              <Link to='/signup'>Signup</Link>
+              <Link to='/' className='nav-hover'>
+                Login
+              </Link>
+              <Link to='/signup' className='nav-hover'>
+                Signup
+              </Link>
             </>
           )}
         </nav>
-        {/* </div> */}
       </header>
     );
   }
 };
 
 export default Header;
+

@@ -25,7 +25,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_CUSTOMER = gql`
-  mutation AddCustomer(
+  mutation Mutation(
     $name: String!
     $email: String!
     $phone: String
@@ -33,23 +33,6 @@ export const ADD_CUSTOMER = gql`
   ) {
     addCustomer(name: $name, email: $email, phone: $phone, address: $address) {
       _id
-      name
-      email
-      phone
-      address
-      customerSince
-      noteCount
-      communicationCount
-      communicationHistory {
-        _id
-      }
-      notes {
-        _id
-      }
-      createdBy {
-        _id
-        username
-      }
     }
   }
 `;
@@ -58,25 +41,35 @@ export const ADD_CUSTOMER_NOTE = gql`
   mutation Mutation($customerId: ID!, $noteBody: String!) {
     addCustomerNote(customerId: $customerId, noteBody: $noteBody) {
       _id
-      name
-      email
-      phone
-      address
-      customerSince
-      notes {
-        _id
-        createdAt
-        noteBody
-        author {
-          _id
-          username
-        }
-      }
-      createdBy {
-        _id
-        username
-      }
-      noteCount
+      author
+      noteBody
+      createdAt
     }
   }
 `;
+
+export const ADD_CUSTOMER_COMMUNICATION = gql`
+  mutation Mutation(
+    $customerId: ID!
+    $type: String!
+    $subject: String!
+    $date: String
+    $notes: String
+  ) {
+    addCustomerCommunication(
+      customerId: $customerId
+      type: $type
+      subject: $subject
+      date: $date
+      notes: $notes
+    ) {
+      _id
+      type
+      subject
+      date
+      notes
+      participants
+    }
+  }
+`;
+

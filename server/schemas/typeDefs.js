@@ -11,7 +11,7 @@ const typeDefs = gql`
 
   type Note {
     _id: ID
-    author: [User]
+    author: String
     noteBody: String
     createdAt: String
   }
@@ -25,7 +25,7 @@ const typeDefs = gql`
     customerSince: String
     notes: [Note]
     communicationHistory: [Communication]
-    createdBy: User
+    createdBy: String
     noteCount: Int
     communicationCount: Int
   }
@@ -36,7 +36,7 @@ const typeDefs = gql`
     subject: String
     date: String
     notes: String
-    participants: [User]
+    participants: String
   }
 
   type Auth {
@@ -61,13 +61,14 @@ const typeDefs = gql`
       phone: String
       address: String
     ): Customer
-    addCustomerNote(customerId: ID!, noteBody: String!): Customer
+    addCustomerNote(customerId: ID!, noteBody: String!): Note
     addCustomerCommunication(
       customerId: ID!
       type: String!
+      subject: String!
       date: String
       notes: String
-    ): Customer
+    ): Communication
   }
 `;
 

@@ -3,9 +3,11 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { SlNote } from 'react-icons/sl';
 
+import CustomerNoteList from '../components/CustomerNoteList';
 import AddCustomerNoteForm from '../components/AddCustomerNoteForm';
+import CustomerCommunicationList from '../components/CustomerCommunicationList';
+import AddCustomerCommunicationForm from '../components/AddCustomerCommunicationForm';
 
-import Auth from '../utils/auth';
 import { QUERY_CUSTOMER } from '../utils/queries';
 
 const Customer = () => {
@@ -17,7 +19,8 @@ const Customer = () => {
 
   const [navState, setNavState] = useState('Notes');
   const [noteModalVisible, setNoteModalVisible] = useState(false);
-
+  const [communicationModalVisible, setCommunicationModalVisible] = useState(false);
+  
   if (loading) {
     return (
       <div className='container'>
@@ -87,6 +90,7 @@ const Customer = () => {
                 />
               )}
             </div>
+            <CustomerNoteList notes={data.customer.notes} />
           </div>
         </div>
       </section>
@@ -95,14 +99,62 @@ const Customer = () => {
 
   if (navState === 'Communication') {
     return (
-      <section>
+        <section>
         <div className='flex-row sub-nav'>
           <ul>
-            <li onClick={() => setNavState('Notes')}>
-              NOTES
-            </li>
+            <li onClick={() => setNavState('Notes')}>NOTES</li>
             <li className='active-sub-nav'>COMMUNICATION</li>
           </ul>
+        </div>
+        <div className='profile-overview flex-row'>
+          <div className='flex-column w-25 ml-5 mt-3'>
+            <div
+              data-initials={data.customer.name.charAt(0)}
+              className='align-center justify-center mx-auto'
+            ></div>
+            <div className='customer-info'>
+              <h4>NAME:</h4>
+              <p>
+                <span>{data.customer.name}</span>
+              </p>
+            </div>
+            <div className='customer-info'>
+              <h4>EMAIL:</h4>
+              <p>
+                <span>{data.customer.email}</span>
+              </p>
+            </div>
+            <div className='customer-info'>
+              <h4>PHONE:</h4>
+              <p>
+                <span>{data.customer.phone}</span>
+              </p>
+            </div>
+            <div className='customer-info'>
+              <h4>ADDRESS:</h4>
+              <p>
+                <span>{data.customer.address}</span>
+              </p>
+            </div>
+          </div>
+          <div className='flex-column w-50 mx-auto customer-list-container'>
+            <div className='flex-row justify-space-between'>
+              <h3>Past Contact ({data.customer.communicationCount})</h3>
+              <button
+                className='open-modal-btn'
+                onClick={() => setCommunicationModalVisible(true)}
+              >
+                <SlNote />
+              </button>
+              {communicationModalVisible && (
+                <AddCustomerCommunicationForm
+                  setCommunicationModalVisible={setCommunicationModalVisible}
+                  customerId={data.customer._id}
+                />
+              )}
+            </div>
+            <CustomerCommunicationList communications={data.customer.communicationHistory} />
+          </div>
         </div>
       </section>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const TestCustomerList = ({ customers }) => {
+const CustomerList = ({ customers }) => {
   if (!customers.length) {
     return (
       <section className='flex-column w-75 justify-space-between customer-list-container'>
@@ -45,4 +45,4 @@ const TestCustomerList = ({ customers }) => {
   );
 };
 
-export default TestCustomerList;
+export default CustomerList;

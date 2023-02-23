@@ -23,10 +23,7 @@ export const QUERY_CUSTOMERS = gql`
         subject
         date
         notes
-        participants {
-          _id
-          username
-        }
+        participants
       }
     }
   }
@@ -42,26 +39,19 @@ export const QUERY_CUSTOMER = gql`
       customerSince
       notes {
         _id
-        author {
-          username
-        }
-        createdAt
+        author
         noteBody
+        createdAt
       }
       communicationHistory {
         _id
+        type
+        subject
         date
         notes
-        subject
-        type
-        participants {
-          username
-        }
+        participants
       }
-      createdBy {
-        _id
-        username
-      }
+      createdBy
       noteCount
       communicationCount
     }
@@ -90,42 +80,38 @@ export const QUERY_USER = gql`
 
 export const QUERY_ME = gql`
   query Query {
-    me {
+  me {
+    _id
+    username
+    email
+    customerCount
+    customers {
       _id
-      username
+      name
       email
-      customerCount
-      customers {
+      phone
+      address
+      customerSince
+      notes {
         _id
-        name
-        email
-        phone
-        address
-        customerSince
-        notes {
-          _id
-          createdAt
-          noteBody
-        }
-        communicationHistory {
-          _id
-          type
-          subject
-          date
-          notes
-          participants {
-            username
-          }
-        }
-        createdBy {
-          _id
-          username
-        }
-        noteCount
-        communicationCount
+        author
+        noteBody
+        createdAt
       }
+      communicationHistory {
+        _id
+        type
+        subject
+        date
+        notes
+        participants
+      }
+      createdBy
+      noteCount
+      communicationCount
     }
   }
+}
 `;
 
 export const QUERY_ME_BASIC = gql`
@@ -138,3 +124,4 @@ export const QUERY_ME_BASIC = gql`
     }
   }
 `;
+

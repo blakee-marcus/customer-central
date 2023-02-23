@@ -3,8 +3,8 @@ const dateFormat = require('../utils/dateFormat');
 
 const noteSchema = new Schema({
   author: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
+    required: true,
   },
   noteBody: {
     type: String,

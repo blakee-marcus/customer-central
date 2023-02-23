@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Customer } = require('../models');
+const {
+  User, Customer, Note, Communication,
+} = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -19,11 +21,18 @@ const resolvers = {
       const params = username ? { username } : {};
       return Customer.find(params).sort({ createdAt: -1 });
     },
-    customer: async (parent, { _id }) => Customer.findOne({ _id }),
+    customer: async (parent, { _id }) => {
+      const customer = await Customer.findOne({ _id }).populate({
+        path: 'notes',
+        options: { sort: { createdAt: -1 } },
+      }).populate({
+        path: 'communicationHistory',
+        options: { sort: { date: -1 } },
+      });
+      return customer;
+    },
     users: async () => User.find().select('-__v -password').populate('customers'),
-    user: async (parent, { username }) => User.findOne({ username })
-      .select('-__v -password')
-      .populate('customers'),
+    user: async (parent, { username }) => User.findOne({ username }).select('-__v -password').populate('customers'),
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -51,7 +60,7 @@ const resolvers = {
       if (context.user) {
         const customer = await Customer.create({
           ...args,
-          createdBy: context.user._id,
+          createdBy: context.user.username,
         });
 
         await User.findByIdAndUpdate(
@@ -65,49 +74,42 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    addCustomerNote: async (parent, { customerId, noteBody }, context) => {
+    addCustomerNote: async (parent, args, context) => {
       if (context.user) {
-        const updatedCustomer = await Customer.findOneAndUpdate(
-          { _id: customerId },
+        const note = await Note.create({
+          ...args,
+          author: context.user.username,
+        });
+        await Customer.findByIdAndUpdate(
+          { _id: args.customerId },
           {
             $push: {
-              notes: {
-                noteBody,
-                author: context.user.username,
-              },
+              notes: note._id,
             },
           },
           { new: true },
         );
 
-        return updatedCustomer;
+        return note;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    addCustomerCommunication: async (
-      parent,
-      {
-        customerId, type, subject, notes,
-      },
-      context,
-    ) => {
+    addCustomerCommunication: async (parent, args, context) => {
       if (context.user) {
-        const updatedCustomer = await Customer.findOneAndUpdate(
-          { _id: customerId },
+        const communication = await Communication.create({
+          ...args,
+          participants: context.user.username,
+        });
+        await Customer.findByIdAndUpdate(
+          { _id: args.customerId },
           {
             $push: {
-              communicationHistory: {
-                type,
-                subject,
-                notes,
-                participants: context.user.username,
-              },
+              communicationHistory: communication._id,
             },
           },
           { new: true },
         );
-
-        return updatedCustomer;
+        return communication;
       }
       throw new AuthenticationError('You need to be logged in!');
     },

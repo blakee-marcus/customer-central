@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { IoClose } from 'react-icons/io5';
 
 import { ADD_CUSTOMER } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
@@ -12,7 +13,9 @@ const AddCustomerForm = (props) => {
     phone: '',
     address: '',
   });
-  const [addCustomer] = useMutation(ADD_CUSTOMER, { refetchQueries: [ { query: QUERY_ME }]});
+  const [addCustomer] = useMutation(ADD_CUSTOMER, {
+    refetchQueries: [{ query: QUERY_ME }],
+  });
 
   const validate = (name, value) => {
     let errorMessage = '';
@@ -77,7 +80,16 @@ const AddCustomerForm = (props) => {
   return (
     <div className='modal'>
       <div className='modal-content'>
-        <h3>Add New Customer</h3>
+        <div className='flex-row justify-space-between'>
+          <h3 className='mx-auto pl-5'>Add New Customer</h3>
+          <button
+            className='open-modal-btn'
+            onClick={() => props.setModalVisible(false)}
+          >
+            <IoClose />
+          </button>
+        </div>
+
         <form className='flex-column' onSubmit={handleFormSubmit}>
           <input
             className='signup-form-input'
@@ -130,3 +142,4 @@ const AddCustomerForm = (props) => {
 };
 
 export default AddCustomerForm;
+

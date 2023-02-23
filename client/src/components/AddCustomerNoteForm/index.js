@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { IoClose } from 'react-icons/io5';
 
 import { ADD_CUSTOMER_NOTE } from '../../utils/mutations';
 import { QUERY_CUSTOMER } from '../../utils/queries';
@@ -8,15 +9,20 @@ const AddCustomerNoteForm = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [formState, setFormState] = useState({ noteBody: '' });
   const [addCustomerNote] = useMutation(ADD_CUSTOMER_NOTE, {
-    refetchQueries: [{ query: QUERY_CUSTOMER }],
+    refetchQueries: [
+      {
+        query: QUERY_CUSTOMER,
+        variables: { id: props.customerId },
+      },
+    ],
   });
 
   const validate = (name, value) => {
     let errorMessage = '';
     switch (name) {
       case 'noteBody':
-        if (value.length < 3) {
-          errorMessage = 'Please Enter Full Name';
+        if (value.length === 0) {
+          errorMessage = 'Please Enter a Note';
         }
         break;
       default:
@@ -63,9 +69,17 @@ const AddCustomerNoteForm = (props) => {
   return (
     <div className='modal'>
       <div className='modal-content'>
-        <h3>Add New Customer</h3>
+        <div className='flex-row justify-space-between'>
+          <h3 className='mx-auto pl-5'>Add New Customer Note</h3>
+          <button
+            className='open-modal-btn'
+            onClick={() => props.setNoteModalVisible(false)}
+          >
+            <IoClose />
+          </button>
+        </div>
         <form className='flex-column' onSubmit={handleFormSubmit}>
-          <input
+          <textarea
             className='signup-form-input'
             placeholder='NOTE'
             name='noteBody'
@@ -86,3 +100,4 @@ const AddCustomerNoteForm = (props) => {
 };
 
 export default AddCustomerNoteForm;
+

@@ -5,7 +5,7 @@ const communicationSchema = new Schema({
   type: {
     type: String,
     enum: {
-      values: ['email', 'phone', 'meeting'],
+      values: ['email', 'phone', 'in person', 'video chat'],
       message: 'Communication type must be email, phone or meeting!',
     },
     required: true,
@@ -23,12 +23,10 @@ const communicationSchema = new Schema({
     type: String,
     required: true,
   },
-  participants: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+  participants: {
+    type: String,
+    required: true,
+  },
 });
 
 const Communication = model('Communication', communicationSchema);

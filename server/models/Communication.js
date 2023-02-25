@@ -1,11 +1,10 @@
 const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
 
 const communicationSchema = new Schema({
   type: {
     type: String,
     enum: {
-      values: ['email', 'phone', 'meeting'],
+      values: ['email', 'phone', 'in person', 'video chat'],
       message: 'Communication type must be email, phone or meeting!',
     },
     required: true,
@@ -15,20 +14,21 @@ const communicationSchema = new Schema({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
-    get: (timestamp) => dateFormat(timestamp),
   },
   notes: {
     type: String,
     required: true,
   },
-  participants: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+  participants: {
+    type: String,
+    required: true,
+  },
+  writtenFor: {
+    type: Schema.Types.ObjectId,
+    ref: 'Customer',
+  },
 });
 
 const Communication = model('Communication', communicationSchema);

@@ -31,12 +31,10 @@ const customerSchema = new Schema(
         ref: 'Communication',
       },
     ],
-    createdBy: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
+    createdBy: {
+      type: String,
+      required: true,
+    },
   },
   {
     toJSON: {

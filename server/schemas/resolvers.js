@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Customer } = require('../models');
+const {
+  User, Customer, Note, Communication,
+} = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -9,7 +11,7 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          .populate('customers');
+          .populate({ path: 'customers', populate: { path: 'communicationHistory' } });
 
         return userData;
       }
@@ -17,13 +19,34 @@ const resolvers = {
     },
     customers: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Customer.find(params).sort({ createdAt: -1 });
+      return Customer.find(params).populate({
+        path: 'notes',
+        options: { sort: { createdAt: -1 } },
+      }).populate({
+        path: 'communicationHistory',
+        options: { sort: { date: -1 } },
+      });
     },
-    customer: async (parent, { _id }) => Customer.findOne({ _id }),
+    customer: async (parent, { _id }) => {
+      const customer = await Customer.findOne({ _id }).populate({
+        path: 'notes',
+        options: { sort: { createdAt: -1 } },
+      }).populate({
+        path: 'communicationHistory',
+        options: { sort: { date: -1 } },
+      });
+      return customer;
+    },
+    notesWrittenBy: async (parent, { username }) => {
+      const notes = await Note.find({ author: username }).populate('writtenFor').sort({ createdAt: -1 });
+      return notes;
+    },
+    communicationWrittenBy: async (parent, { participants }) => {
+      const communicationEntry = await Communication.find({ participants }).populate('writtenFor').sort({ createdAt: -1 });
+      return communicationEntry;
+    },
     users: async () => User.find().select('-__v -password').populate('customers'),
-    user: async (parent, { username }) => User.findOne({ username })
-      .select('-__v -password')
-      .populate('customers'),
+    user: async (parent, { username }) => User.findOne({ username }).select('-__v -password').populate('customers'),
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -65,49 +88,44 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
-    addCustomerNote: async (parent, { customerId, noteBody }, context) => {
+    addCustomerNote: async (parent, args, context) => {
       if (context.user) {
-        const updatedCustomer = await Customer.findOneAndUpdate(
-          { _id: customerId },
+        const note = await Note.create({
+          ...args,
+          author: context.user.username,
+          writtenFor: args.customerId,
+        });
+        await Customer.findByIdAndUpdate(
+          { _id: args.customerId },
           {
             $push: {
-              notes: {
-                noteBody,
-                author: context.user.username,
-              },
+              notes: note._id,
             },
           },
           { new: true },
         );
 
-        return updatedCustomer;
+        return note;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    addCustomerCommunication: async (
-      parent,
-      {
-        customerId, type, subject, notes,
-      },
-      context,
-    ) => {
+    addCustomerCommunication: async (parent, args, context) => {
       if (context.user) {
-        const updatedCustomer = await Customer.findOneAndUpdate(
-          { _id: customerId },
+        const communication = await Communication.create({
+          ...args,
+          participants: context.user.username,
+          writtenFor: args.customerId,
+        });
+        await Customer.findByIdAndUpdate(
+          { _id: args.customerId },
           {
             $push: {
-              communicationHistory: {
-                type,
-                subject,
-                notes,
-                participants: context.user.username,
-              },
+              communicationHistory: communication._id,
             },
           },
           { new: true },
         );
-
-        return updatedCustomer;
+        return communication;
       }
       throw new AuthenticationError('You need to be logged in!');
     },

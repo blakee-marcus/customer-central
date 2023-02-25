@@ -11,9 +11,10 @@ const typeDefs = gql`
 
   type Note {
     _id: ID
-    author: [User]
+    author: String
     noteBody: String
     createdAt: String
+    writtenFor: Customer
   }
 
   type Customer {
@@ -25,7 +26,7 @@ const typeDefs = gql`
     customerSince: String
     notes: [Note]
     communicationHistory: [Communication]
-    createdBy: [User]
+    createdBy: String
     noteCount: Int
     communicationCount: Int
   }
@@ -36,7 +37,8 @@ const typeDefs = gql`
     subject: String
     date: String
     notes: String
-    participants: [User]
+    participants: String
+    writtenFor: Customer
   }
 
   type Auth {
@@ -50,6 +52,8 @@ const typeDefs = gql`
     user(username: String): User
     customers(username: String): [Customer]
     customer(_id: ID!): Customer
+    notesWrittenBy(username: String): [Note]
+    communicationWrittenBy(participants: String): [Communication]
   }
 
   type Mutation {
@@ -60,14 +64,15 @@ const typeDefs = gql`
       email: String!
       phone: String
       address: String
-    ): User
-    addCustomerNote(customerId: ID!, noteBody: String!): Customer
+    ): Customer
+    addCustomerNote(customerId: ID!, noteBody: String!): Note
     addCustomerCommunication(
       customerId: ID!
       type: String!
+      subject: String!
       date: String
       notes: String
-    ): Customer
+    ): Communication
   }
 `;
 

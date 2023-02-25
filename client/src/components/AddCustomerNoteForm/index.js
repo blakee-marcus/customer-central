@@ -70,7 +70,7 @@ const AddCustomerNoteForm = (props) => {
     <div className='modal'>
       <div className='modal-content'>
         <div className='flex-row justify-space-between'>
-          <h3 className='mx-auto pl-5'>Add New Customer Note</h3>
+          <h3 className='mx-auto pl-5 text-header'>Add New Customer Note</h3>
           <button
             className='open-modal-btn'
             onClick={() => props.setNoteModalVisible(false)}

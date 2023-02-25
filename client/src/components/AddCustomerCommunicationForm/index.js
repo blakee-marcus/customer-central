@@ -93,7 +93,7 @@ const AddCustomerCommunicationForm = (props) => {
     <div className='modal'>
       <div className='modal-content'>
       <div className='flex-row justify-space-between'>
-          <h3 className='mx-auto pl-5'>Add New Communication:</h3>
+          <h3 className='mx-auto pl-5 text-header'>Add New Communication:</h3>
           <button
             className='open-modal-btn'
             onClick={() => props.setCommunicationModalVisible(false)}

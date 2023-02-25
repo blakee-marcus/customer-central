@@ -14,6 +14,7 @@ const typeDefs = gql`
     author: String
     noteBody: String
     createdAt: String
+    writtenFor: Customer
   }
 
   type Customer {
@@ -37,6 +38,7 @@ const typeDefs = gql`
     date: String
     notes: String
     participants: String
+    writtenFor: Customer
   }
 
   type Auth {
@@ -50,6 +52,8 @@ const typeDefs = gql`
     user(username: String): User
     customers(username: String): [Customer]
     customer(_id: ID!): Customer
+    notesWrittenBy(username: String): [Note]
+    communicationWrittenBy(participants: String): [Communication]
   }
 
   type Mutation {

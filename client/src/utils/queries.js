@@ -79,39 +79,42 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_ME = gql`
-  query Query {
-  me {
-    _id
-    username
-    email
-    customerCount
-    customers {
+  query Me {
+    me {
       _id
-      name
+      username
       email
-      phone
-      address
-      customerSince
-      notes {
+      customerCount
+      customers {
         _id
-        author
-        noteBody
-        createdAt
+        name
+        email
+        phone
+        address
+        customerSince
+        notes {
+          _id
+          author
+          noteBody
+          createdAt
+          writtenFor {
+            _id
+          }
+        }
+        communicationHistory {
+          _id
+          type
+          subject
+          date
+          notes
+          participants
+        }
+        createdBy
+        noteCount
+        communicationCount
       }
-      communicationHistory {
-        _id
-        type
-        subject
-        date
-        notes
-        participants
-      }
-      createdBy
-      noteCount
-      communicationCount
     }
   }
-}
 `;
 
 export const QUERY_ME_BASIC = gql`
@@ -121,6 +124,38 @@ export const QUERY_ME_BASIC = gql`
       username
       email
       customerCount
+    }
+  }
+`;
+
+export const NOTES_WRITTEN_BY = gql`
+  query NotesWrittenBy($username: String) {
+    notesWrittenBy(username: $username) {
+      _id
+      author
+      noteBody
+      createdAt
+      writtenFor {
+        _id
+        name
+      }
+    }
+  }
+`;
+
+export const COMMUNICATION_WRITTEN_BY = gql`
+  query Query($participants: String) {
+    communicationWrittenBy(participants: $participants) {
+      _id
+      type
+      subject
+      date
+      notes
+      participants
+      writtenFor {
+        _id
+        name
+      }
     }
   }
 `;

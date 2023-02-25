@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
 
 const communicationSchema = new Schema({
   type: {
@@ -15,9 +14,8 @@ const communicationSchema = new Schema({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
-    get: (timestamp) => dateFormat(timestamp),
   },
   notes: {
     type: String,
@@ -26,6 +24,10 @@ const communicationSchema = new Schema({
   participants: {
     type: String,
     required: true,
+  },
+  writtenFor: {
+    type: Schema.Types.ObjectId,
+    ref: 'Customer',
   },
 });
 

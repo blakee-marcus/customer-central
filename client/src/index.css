@@ -3,13 +3,10 @@
 
 :root {
   --primary-text-color: #eee7d3;
+  --secondary-text-color: #9c998b;
   --header-text-color: #cabf93;
-
   --border-bottom-divider: solid 1px #ffffff4d;
-  --quatrinary: #cadbda;
-  --light: #e1f5f4;
-  --dark: #6c7575;
-  --error: rgb(228, 46, 1);
+  
   --border-radius: 0.3rem;
   --spacing-one: calc(1rem * 0.25);
   --spacing-two: calc(1rem * 0.5);
@@ -76,11 +73,11 @@ h6 {
 
 p {
   font-size: 1.1rem;
-  margin-top: 0;
+  margin: 0;
 }
 
 a {
-  color: var(--dark);
+  color: var(--primary-text-color);
   text-decoration: none;
 }
 
@@ -777,15 +774,15 @@ li {
 }
 
 .text-primary {
-  color: var(--primary);
+  color: var(--primary-text-color);
 }
 
 .text-secondary {
-  color: var(--secondary);
+  color: var(--secondary-text-color);
 }
 
-.text-tertiary {
-  color: var(--tertiary);
+.text-header {
+  color: var(--header-text-color);
 }
 
 .text-quatrinary {
@@ -802,27 +799,6 @@ li {
 
 .text-error {
   color: var(--error);
-}
-
-/* BACKGROUND UTILS */
-.bg-primary {
-  background-color: var(--primary);
-}
-
-.bg-secondary {
-  background-color: var(--secondary);
-}
-
-.bg-tertiary {
-  background-color: var(--tertiary);
-}
-
-.bg-light {
-  background-color: var(--light);
-}
-
-.bg-dark {
-  background-color: var(--dark);
 }
 
 /* FLEX CONTENT */
@@ -1294,13 +1270,6 @@ li {
 
 /* Customer List Section */
 
-.customer-list-container h3 {
-  color: var(--primary-text-color);
-}
-.customer-list-container h4 {
-  color: var(--primary-text-color);
-}
-
 .customer-list-container [data-initials]:before {
   font-size: 1.5rem;
   width: 4.5rem;
@@ -1713,12 +1682,14 @@ a.link:hover {
 /* Customer Page */
 .customer-info {
     border-bottom: var(--border-bottom-divider);
+    color: var(--primary-text-color);
+    padding-bottom: 1.125rem;
 }
 .customer-info h4 {
     color: var(--header-text-color);
     text-align: left;
 }
 
-.customer-info span {
-    color: var(--primary-text-color);
+.customer-card h4 {
+    color: var(--header-text-color);
 }

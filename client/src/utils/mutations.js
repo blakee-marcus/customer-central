@@ -49,27 +49,10 @@ export const ADD_CUSTOMER_NOTE = gql`
 `;
 
 export const ADD_CUSTOMER_COMMUNICATION = gql`
-  mutation Mutation(
-    $customerId: ID!
-    $type: String!
-    $subject: String!
-    $date: String
-    $notes: String
-  ) {
-    addCustomerCommunication(
-      customerId: $customerId
-      type: $type
-      subject: $subject
-      date: $date
-      notes: $notes
-    ) {
-      _id
-      type
-      subject
-      date
-      notes
-      participants
-    }
+  mutation Mutation($customerId: ID!, $type: String!, $subject: String!, $date: String, $notes: String) {
+  addCustomerCommunication(customerId: $customerId, type: $type, subject: $subject, date: $date, notes: $notes) {
+    _id
   }
+}
 `;
 

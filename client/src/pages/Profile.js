@@ -5,12 +5,15 @@ import { HiUserAdd } from 'react-icons/hi';
 
 import CustomerList from '../components/CustomerList';
 import AddCustomerForm from '../components/AddCustomerForm';
+import CustomerNoteList from '../components/CustomerNoteList';
+import CustomerCommunicationList from '../components/CustomerCommunicationList';
 
 import Auth from '../utils/auth';
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { QUERY_USER, QUERY_ME, NOTES_WRITTEN_BY, COMMUNICATION_WRITTEN_BY } from '../utils/queries';
+
 
 const Profile = () => {
-  const [profileNavState, setProfileNavState] = useState('Overview');
+  const [profileNavState, setProfileNavState] = useState('Customers');
   const [modalVisible, setModalVisible] = useState(false);
   const { username: userParam } = useParams();
 
@@ -18,15 +21,26 @@ const Profile = () => {
     variables: { username: userParam },
   });
   const user = data?.me || data?.user || {};
+  
+  const { loading: loadingNotes, data: noteData } = useQuery(NOTES_WRITTEN_BY, {
+    variables: { username: user.username },
+  });
+  const notes = noteData?.notesWrittenBy;
 
+  const { loading: loadingCommunication, data: communicationData } = useQuery(COMMUNICATION_WRITTEN_BY, {
+    variables: { participants: user.username },
+  });
+  const communications = communicationData?.communicationWrittenBy;
+
+  console.log(communications);
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to='/profile' />;
   }
 
-  if (loading) {
+  if (loading || loadingNotes || loadingCommunication) {
     return (
       <div className='container'>
-        <div>Loading...</div>
+        <div className='text-primary'>{`Loading ${profileNavState}...`}</div>
         <div className='loadingio-spinner-rolling-5y2qfcr8fy'>
           <div className='ldio-lfz02bk665j'>
             <div></div>
@@ -40,16 +54,16 @@ const Profile = () => {
     return <Navigate to='/' />;
   }
 
-  if (profileNavState === 'Overview') {
+  if (profileNavState === 'Customers') {
     return (
-      <section>
+      <section className='h-100'>
         <div className='flex-row sub-nav'>
           <ul>
             <li
               className='active-sub-nav'
-              onClick={() => setProfileNavState('Overview')}
+              onClick={() => setProfileNavState('Customers')}
             >
-              OVERVIEW
+              CUSTOMERS
             </li>
             <li onClick={() => setProfileNavState('Notes')}>NOTES</li>
             <li onClick={() => setProfileNavState('Communication')}>
@@ -64,7 +78,7 @@ const Profile = () => {
           </div>
           <div className='flex-column w-50 mx-auto customer-list-container'>
             <div className='flex-row justify-space-between'>
-              <h3>Customers ({user.customers.length})</h3>
+              <h3 className='text-header'>Customers ({user.customers.length})</h3>
               <button
                 className='open-modal-btn'
                 onClick={() => setModalVisible(true)}
@@ -87,7 +101,7 @@ const Profile = () => {
       <section>
         <div className='flex-row sub-nav'>
           <ul>
-            <li onClick={() => setProfileNavState('Overview')}>OVERVIEW</li>
+            <li onClick={() => setProfileNavState('Customers')}>CUSTOMERS</li>
             <li
               className='active-sub-nav'
               onClick={() => setProfileNavState('Notes')}
@@ -99,6 +113,18 @@ const Profile = () => {
             </li>
           </ul>
         </div>
+        <div className='profile-overview flex-row'>
+          <div className='flex-column align-center justify-center profile-user w-25'>
+            <div data-initials={user.username.charAt(0)}></div>
+            <h4>{user.username}</h4>
+          </div>
+          <div className='flex-column w-50 mx-auto customer-list-container'>
+            <div className='flex-row justify-space-between'>
+              <h3 className='text-header'>Notes ({notes.length})</h3>
+            </div>
+            <CustomerNoteList notes={notes} displayMode='User'/>
+          </div>
+        </div>
       </section>
     );
   }
@@ -108,7 +134,7 @@ const Profile = () => {
       <section>
         <div className='flex-row sub-nav'>
           <ul>
-            <li onClick={() => setProfileNavState('Overview')}>OVERVIEW</li>
+            <li onClick={() => setProfileNavState('Customers')}>CUSTOMERS</li>
             <li onClick={() => setProfileNavState('Notes')}>NOTES</li>
             <li
               className='active-sub-nav'
@@ -118,9 +144,22 @@ const Profile = () => {
             </li>
           </ul>
         </div>
+        <div className='profile-overview flex-row'>
+          <div className='flex-column align-center justify-center profile-user w-25'>
+            <div data-initials={user.username.charAt(0)}></div>
+            <h4>{user.username}</h4>
+          </div>
+          <div className='flex-column w-50 mx-auto customer-list-container'>
+            <div className='flex-row justify-space-between'>
+              <h3 className='text-header'>Communication History ({communications.length})</h3>
+            </div>
+            <CustomerCommunicationList communications={communications} displayMode='User'/>
+          </div>
+        </div>
       </section>
     );
   }
 };
 
 export default Profile;
+

@@ -19,12 +19,13 @@ const Customer = () => {
 
   const [navState, setNavState] = useState('Notes');
   const [noteModalVisible, setNoteModalVisible] = useState(false);
-  const [communicationModalVisible, setCommunicationModalVisible] = useState(false);
-  
+  const [communicationModalVisible, setCommunicationModalVisible] =
+    useState(false);
+
   if (loading) {
     return (
       <div className='container'>
-        <div>Loading...</div>
+        <div className='text-primary'>Loading...</div>
         <div className='loadingio-spinner-rolling-5y2qfcr8fy'>
           <div className='ldio-lfz02bk665j'>
             <div></div>
@@ -51,32 +52,28 @@ const Customer = () => {
             ></div>
             <div className='customer-info'>
               <h4>NAME:</h4>
-              <p>
-                <span>{data.customer.name}</span>
-              </p>
+              <p>{data.customer.name}</p>
             </div>
             <div className='customer-info'>
               <h4>EMAIL:</h4>
-              <p>
-                <span>{data.customer.email}</span>
-              </p>
+              <a href={`mailto:${data.customer.email}`}>
+                {data.customer.email}
+              </a>
             </div>
             <div className='customer-info'>
               <h4>PHONE:</h4>
-              <p>
-                <span>{data.customer.phone}</span>
-              </p>
+              <a href={`tel:${data.customer.phone}`}>{data.customer.phone}</a>
             </div>
             <div className='customer-info'>
               <h4>ADDRESS:</h4>
-              <p>
-                <span>{data.customer.address}</span>
-              </p>
+              <a href={`http://maps.google.com/?q=${data.customer.address}`}>
+                {data.customer.address}
+              </a>
             </div>
           </div>
           <div className='flex-column w-50 mx-auto customer-list-container'>
             <div className='flex-row justify-space-between'>
-              <h3>Notes ({data.customer.notes.length})</h3>
+              <h3 className='text-header'>Notes ({data.customer.notes.length})</h3>
               <button
                 className='open-modal-btn'
                 onClick={() => setNoteModalVisible(true)}
@@ -90,7 +87,7 @@ const Customer = () => {
                 />
               )}
             </div>
-            <CustomerNoteList notes={data.customer.notes} />
+            <CustomerNoteList notes={data.customer.notes} displayMode='Customer'/>
           </div>
         </div>
       </section>
@@ -99,7 +96,7 @@ const Customer = () => {
 
   if (navState === 'Communication') {
     return (
-        <section>
+      <section>
         <div className='flex-row sub-nav'>
           <ul>
             <li onClick={() => setNavState('Notes')}>NOTES</li>
@@ -139,7 +136,7 @@ const Customer = () => {
           </div>
           <div className='flex-column w-50 mx-auto customer-list-container'>
             <div className='flex-row justify-space-between'>
-              <h3>Past Contact ({data.customer.communicationCount})</h3>
+              <h3 className='text-header'>Past Contact ({data.customer.communicationCount})</h3>
               <button
                 className='open-modal-btn'
                 onClick={() => setCommunicationModalVisible(true)}
@@ -153,7 +150,10 @@ const Customer = () => {
                 />
               )}
             </div>
-            <CustomerCommunicationList communications={data.customer.communicationHistory} />
+            <CustomerCommunicationList
+              communications={data.customer.communicationHistory}
+              displayMode='Customer'
+            />
           </div>
         </div>
       </section>
@@ -162,3 +162,4 @@ const Customer = () => {
 };
 
 export default Customer;
+

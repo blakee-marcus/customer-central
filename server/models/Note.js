@@ -9,6 +9,10 @@ const noteSchema = new Schema({
   noteBody: {
     type: String,
   },
+  writtenFor: {
+    type: Schema.Types.ObjectId,
+    ref: 'Customer',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

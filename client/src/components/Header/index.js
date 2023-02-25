@@ -8,10 +8,7 @@ const Header = () => {
     event.preventDefault();
     Auth.logout();
   };
-  if (
-    window.location.pathname !== '/signup' &&
-    window.location.pathname !== '/'
-  ) {
+  if (window.location.pathname !== '/signup' && window.location.pathname !== '/') {
     return (
       <header className='flex-row align-center col-12'>
         <nav className='flex-row align-center justify-flex-start col-12'>

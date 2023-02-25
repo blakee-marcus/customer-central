@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import {
   ApolloProvider,
   ApolloClient,
@@ -10,10 +10,10 @@ import { setContext } from '@apollo/client/link/context';
 
 import Header from './components/Header';
 
-import Profile from './pages/Profile';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Customer from './pages/Customer';
+const Profile = lazy(() => import('./pages/Profile'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
+const Customer = lazy(() => import('./pages/Customer'));
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -40,7 +40,14 @@ function App() {
       <Router>
         <div className='flex-column justify-flex-start min-100-vh min-100-vw'>
           <Header />
-          <div>
+
+          <Suspense
+            fallback={
+              <div className='text-primary mx-auto align-center'>
+                Loading...
+              </div>
+            }
+          >
             <Routes>
               <Route path='/' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
@@ -50,7 +57,7 @@ function App() {
               </Route>
               <Route path='/customer/:customerId' element={<Customer />} />
             </Routes>
-          </div>
+          </Suspense>
         </div>
       </Router>
     </ApolloProvider>

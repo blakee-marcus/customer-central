@@ -21,7 +21,7 @@ const AddCustomerForm = (props) => {
     let errorMessage = '';
     switch (name) {
       case 'name':
-        if (value.length < 3) {
+        if (value.length < 1) {
           errorMessage = 'Please Enter Full Name';
         }
         break;

@@ -13,7 +13,6 @@ const AddCustomerCommunicationForm = (props) => {
     date: '',
     notes: '',
   });
-  console.log(formState);
   const [addCustomerCommunication] = useMutation(ADD_CUSTOMER_COMMUNICATION, {
     refetchQueries: [
       {

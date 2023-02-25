@@ -22,7 +22,7 @@ const CustomerList = ({ customers }) => {
                 to={`/customer/${customer._id}`}
                 style={{ fontWeight: 700 }}
               >
-                <article className='flex-row justify-space-between customer-card'>
+                <article className='flex-row justify-space-between customer-card text-primary'>
                   <div data-initials={customer.name.charAt(0)}></div>
                   <div className='w-25'>
                     <h4>{customer.name}</h4>
@@ -35,6 +35,11 @@ const CustomerList = ({ customers }) => {
                   </div>
                   <div className='w-25'>
                     <h4>Last Contact On:</h4>
+                    {customer.communicationHistory?.[0]?.date ? (
+                      <p>{customer.communicationHistory[0].date}</p>
+                    ) : (
+                      <p>Not Contacted Yet</p>
+                    )}
                   </div>
                 </article>
               </Link>

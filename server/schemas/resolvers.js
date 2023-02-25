@@ -11,7 +11,7 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          .populate('customers');
+          .populate({ path: 'customers', populate: { path: 'communicationHistory' } });
 
         return userData;
       }
@@ -19,7 +19,13 @@ const resolvers = {
     },
     customers: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Customer.find(params).sort({ createdAt: -1 });
+      return Customer.find(params).populate({
+        path: 'notes',
+        options: { sort: { createdAt: -1 } },
+      }).populate({
+        path: 'communicationHistory',
+        options: { sort: { date: -1 } },
+      });
     },
     customer: async (parent, { _id }) => {
       const customer = await Customer.findOne({ _id }).populate({
@@ -30,6 +36,14 @@ const resolvers = {
         options: { sort: { date: -1 } },
       });
       return customer;
+    },
+    notesWrittenBy: async (parent, { username }) => {
+      const notes = await Note.find({ author: username }).populate('writtenFor').sort({ createdAt: -1 });
+      return notes;
+    },
+    communicationWrittenBy: async (parent, { participants }) => {
+      const communicationEntry = await Communication.find({ participants }).populate('writtenFor').sort({ createdAt: -1 });
+      return communicationEntry;
     },
     users: async () => User.find().select('-__v -password').populate('customers'),
     user: async (parent, { username }) => User.findOne({ username }).select('-__v -password').populate('customers'),
@@ -79,6 +93,7 @@ const resolvers = {
         const note = await Note.create({
           ...args,
           author: context.user.username,
+          writtenFor: args.customerId,
         });
         await Customer.findByIdAndUpdate(
           { _id: args.customerId },
@@ -99,6 +114,7 @@ const resolvers = {
         const communication = await Communication.create({
           ...args,
           participants: context.user.username,
+          writtenFor: args.customerId,
         });
         await Customer.findByIdAndUpdate(
           { _id: args.customerId },

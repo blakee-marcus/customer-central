@@ -32,7 +32,6 @@ const Profile = () => {
   });
   const communications = communicationData?.communicationWrittenBy;
 
-  console.log(communications);
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to='/profile' />;
   }

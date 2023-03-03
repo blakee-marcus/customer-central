@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaArrowRight } from "react-icons/fa";
 
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
@@ -82,7 +83,7 @@ const Login = (props) => {
               </div>
             )}
             <button className='loginBtn'>
-              <i className='fas fa-arrow-right'></i>
+                <FaArrowRight />
             </button>
           </form>
           <Link to='/signup' className='link'>

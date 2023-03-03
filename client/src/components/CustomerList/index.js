@@ -6,7 +6,7 @@ const CustomerList = ({ customers }) => {
     return (
       <section className='flex-column w-75 justify-space-between customer-list-container'>
         <ul>
-          <li>No Customers</li>
+          <li className='text-secondary'>No Customers</li>
         </ul>
       </section>
     );

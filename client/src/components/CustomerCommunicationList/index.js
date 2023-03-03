@@ -1,7 +1,6 @@
 import React from 'react';
 
 const CustomerCommunicationList = (props) => {
-  console.log(props);
   if (!props.communications.length) {
     return (
       <section className='flex-column w-75 justify-space-between customer-list-container'>

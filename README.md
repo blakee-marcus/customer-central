@@ -1,161 +1,71 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+# Customer Central 🗂
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/blakee-marcus/customer-central">
-    ᕙ(⇀‸↼‶)ᕗ
-  </a>
+A comprehensive React/GraphQL-based platform designed for businesses to efficiently manage customer relationships. Equipped with a suite of features, this application ensures users have a seamless experience while recording, tracking, and maintaining customer interactions, all built on the MERN (MongoDB, Express.js, React, Node.js) stack and enhanced with GraphQL.
 
-<h3 align="center">Customer Central</h3>
+![Customer Central Screenshot](./ReadMe-Assets/screenshot.PNG)
 
-  <p align="center">
-    Your Key to Better Customer Relationships!
-    <br />
-    <br />
-    <br />
-    <a href="https://customer-central.herokuapp.com/">View Demo</a>
-    ·
-    <a href="https://github.com/blakee-marcus/customer-central/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/blakee-marcus/customer-central/issues">Request Feature</a>
-  </p>
-</div>
+## Table of Contents
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-        <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-        <li><a href="#contact">Contact</a></li>
-     </ol>
-</details>
+1. [Features](#features)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Roadmap](#roadmap)
+5. [Contributing](#contributing)
+6. [Contact](#contact)
 
-<!-- ABOUT THE PROJECT -->
+## Features
 
-## About The Project
+- **Dynamic Customer Profiles**: Seamlessly create, update, and manage detailed customer profiles.
+- **Integrated Note-taking**: Record and review key notes about each customer to better understand their preferences, past interactions, and needs.
+- **Communication Tracking**: Log and revisit past communication entries, ensuring continuity in every customer interaction.
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-This web application is designed to allow users to manage customer relationships by creating customers, adding notes about them, and keeping track of past communication entries.
-The primary goal of this project is to provide users with a simple and user-friendly interface for managing customer relationships. This application is perfect for small businesses or individual entrepreneurs who need an easy way to keep track of their customer interactions.
-The key features of this application include:
-
-- Creating and managing customer profiles: Users can create new customers, update existing customer information, and delete customers as needed.
-- Adding notes: Users can create and save notes about each customer, such as their preferences, past purchases, or any other relevant information.
-- Adding communication entries: Users can also add entries about past communication with customers, such as phone calls, emails, or in-person meetings. These entries can be used to track the history of customer interactions and to remind users of any outstanding tasks or follow-ups.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Built With
-
-- [MongoDB](https://www.mongodb.com/)
-- [Express.js](https://expressjs.com/)
-- [React.js](https://reactjs.org/)
-- [Node.js](https://nodejs.org/en/)
-- [GraphQL](https://graphql.org/)
-- [Apollo GQL](https://github.com/apollographql/apollo-client)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- GETTING STARTED -->
-
-## Getting Started
-
-Instructions for how to get a copy of the project up and running on your local machine for development and testing purposes.
+## Installation
 
 ### Prerequisites
 
-List the software, libraries, and packages that are required to run this project.
+- [Node.js](https://nodejs.org/)
+- [MongoDB](https://www.mongodb.com/try/download/community)
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+### Steps
 
-### Installation
+1. Clone the repository:
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/blakee-marcus/customer-central.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Run local development server
-   ```sh
-   npm run develop
-   ```
+```bash
+git clone https://github.com/blakee-marcus/customer-central.git
+```
+2. Navigate to the project directory:
+```bash
+cd customer-central
+```
+3. Install the necessary dependencies:
+```bash
+npm install
+```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-<!-- ROADMAP -->
+## Usage
+1. Start the application in development mode:
+```bash
+npm run develop
+```
+Access the client at: `http://localhost:3000`  
+Server will be operational at: `http://localhost:3001`
 
 ## Roadmap
-
-- [ ] Remember Me Functionality on Login Page
-- [ ] oAuth for Signup/ Login
-
-See the [open issues](https://github.com/blakee-marcus/customer-central/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
+- [ ] Introduce a "Remember Me" functionality on the login page.  
+- [ ] Implement oAuth for a more secure signup and login process.    
+For a detailed overview of the planned features and any known issues, visit the [open issues](https://github.com/blakee-marcus/customer-central/issues).
 
 ## Contributing
+Join us in refining and expanding Customer Central! Whether it's through bug reports, feature suggestions, or pull requests, your contribution is invaluable to us. Here's how you can help:
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- CONTACT -->
+1. Fork the Project.
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature).
+3. Commit your Changes (git commit -m 'Add some AmazingFeature').
+4. Push to the Branch (git push origin feature/AmazingFeature).
+5. Open a Pull Request.
+Don't forget to star the project if it aligns with your interests!
 
 ## Contact
+Blake M
 
-Blake M - marcusb733@gmail.com
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/blakee-marcus/customer-central.svg?style=for-the-badge
-[contributors-url]: https://github.com/blakee-marcus/customer-central/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/blakee-marcus/customer-central.svg?style=for-the-badge
-[forks-url]: https://github.com/blakee-marcus/customer-central/network/members
-[stars-shield]: https://img.shields.io/github/stars/blakee-marcus/customer-central.svg?style=for-the-badge
-[stars-url]: https://github.com/blakee-marcus/customer-central/stargazers
-[issues-shield]: https://img.shields.io/github/issues/blakee-marcus/customer-central.svg?style=for-the-badge
-[issues-url]: https://github.com/blakee-marcus/customer-central/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/blake-marcus
-[product-screenshot]: images/screenshot.png
+📧 Email: [marcusb733@gmail.com](mailto:marcusb733@gmail.com)
